@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F9FAFB;
+            color: #1F2937;
+            line-height: 1.6;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            color: #4B5563;
+            margin-bottom: 2rem;
+        }
+
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .contact-card {
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+            min-height: 80vh;
+        }
+
+        .form-section {
+            width: 100%;
+            padding: 2rem;
+        }
+
+        .info-section {
+            width: 100%;
+            padding: 2rem;
+            background-color: #2563EB;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: #F3F4F6;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.5rem;
+            transition: box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #3B82F6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .gender-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .gender-group label {
+            display: flex;
+            align-items: center;
+            margin-right: 1.5rem;
+            font-weight: normal;
+        }
+
+        .gender-group input[type="radio"] {
+            margin-right: 0.5rem;
+            width: 1rem;
+            height: 1rem;
+        }
+
+
+        .info-image {
+            width: 12rem;
+            height: 12rem;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #60A5FA;
+            margin-bottom: 2rem;
+        }
+
+        .info-section h2 {
+            color: #ffffff;
+        }
+
+        .info-section p {
+            color: #BFDBFE;
+            max-width: 24rem;
+        }
+
+        .info-details {
+            margin-top: 2rem;
+        }
+
+        .info-details p {
+            display: flex;
+            align-items: center;
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-details svg {
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-right: 0.75rem;
+        }
+
+
+        .btn {
+            width: 100%;
+            background-color: #2563EB;
+            color: white;
+            font-weight: 700;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #1D4ED8;
+        }
+
+        .btn:disabled {
+            background-color: #9CA3AF;
+            cursor: not-allowed;
+        }
+
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .modal-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            text-align: center;
+            max-width: 24rem;
+            width: 100%;
+        }
+
+        .modal-icon-wrapper {
+            margin: 0 auto 1rem auto;
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+            background-color: #D1FAE5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-icon-wrapper svg {
+            width: 2.5rem;
+            height: 2.5rem;
+            color: #059669;
+        }
+
+        .modal-content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-content p {
+            margin-bottom: 1.5rem;
+        }
+
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 2rem;
+            }
+
+            .contact-card {
+                flex-direction: row;
+            }
+
+            .form-section,
+            .info-section {
+                width: 50%;
+                padding: 3rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="contact-card">
+
+            <div class="form-section">
+                <h2>Get in Touch</h2>
+                <p>We'd love to hear from you. Please fill out this form.</p>
+
+                <form id="contactForm" novalidate>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" class="form-input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" class="form-input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mobile">Mobile Number</label>
+                        <input type="tel" id="mobile" name="mobile" class="form-input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="state">State</label>
+                        <select id="state" name="state" class="form-select" required>
+                            <option value="" disabled selected>Select your state</option>
+                            <option value="Maharashtra">Maharashtra</option>
+                            <option value="Goa">Goa</option>
+                            <option value="Karnataka">Karnataka</option>
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Kerala">Kerala</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <div class="gender-group">
+                            <label><input type="radio" name="gender" value="male">Male</label>
+                            <label><input type="radio" name="gender" value="female">Female</label>
+                            <label><input type="radio" name="gender" value="other">Other</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="4" class="form-textarea" required></textarea>
+                    </div>
+
+                    <div>
+                        <button type="submit" id="submitBtn" class="btn">Submit</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="info-section">
+                <img src="https://placehold.co/400x400/ffffff/3B82F6?text=Contact+Us" alt="Contact Illustration"
+                    class="info-image"
+                    onerror="this.onerror=null; this.src='https://placehold.co/400x400/ffffff/3B82F6?text=Error'">
+                <h2>Contact Information</h2>
+                <p>Reach out to us anytime and we'll happily answer your questions.</p>
+                <div class="info-details">
+                    <p>
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
+                            </path>
+                        </svg>
+                        <span>+91 12345 67890</span>
+                    </p>
+                    <p>
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                            </path>
+                        </svg>
+                        <span>contact@example.com</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="success-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-icon-wrapper">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+            <h3>Success!</h3>
+            <p>Form submitted successfully.</p>
+            <button id="closeModalBtn" class="btn">Close</button>
+        </div>
+    </div>
+    <script src="firebase-config.js"></script>
+    <script type="module">
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+        let db, auth;
+
+        try {
+            const app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+            auth = getAuth(app);
+            setLogLevel('error'); 
+        } catch (e) {
+            console.error("Firebase initialization failed. Ensure firebase-config.js is present and correct.", e);
+            const submitBtn = document.getElementById('submitBtn');
+            if(submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Database Connection Failed';
+            }
+        }
+
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                try {
+                    await signInAnonymously(auth);
+                } catch (error) {
+                    console.error("Anonymous sign-in failed:", error);
+                    const submitBtn = document.getElementById('submitBtn');
+                    if(submitBtn) {
+                        submitBtn.disabled = true;
+                        submitBtn.textContent = 'Authentication Failed';
+                    }
+                }
+            }
+        });
+
+        const contactForm = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const successModal = document.getElementById('success-modal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault(); 
+            const currentUser = auth.currentUser;
+
+            if (!currentUser) {
+                console.error("User not authenticated. Cannot submit form.");
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            const formData = {
+                name: contactForm.name.value,
+                email: contactForm.email.value,
+                mobile: contactForm.mobile.value,
+                state: contactForm.state.value,
+                gender: contactForm.gender.value,
+                message: contactForm.message.value,
+                submittedAt: new Date().toISOString(),
+                submissionTimestamp: new Date(),
+                location: {
+                    city: "Kolhapur",
+                    state: "Maharashtra",
+                    country: "India"
+                }
+            };
+
+            try {
+                const collectionPath = `artifacts/${firebaseConfig.appId}/users/${currentUser.uid}/contacts`;
+                await addDoc(collection(db, collectionPath), formData);
+                showModal();
+                contactForm.reset();
+            } catch (error) {
+                console.error("Error adding document: ", error);
+                alert('There was an error submitting your form. Please try again.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit';
+            }
+        });
+
+        function showModal() {
+            if(successModal) successModal.classList.add('visible');
+        }
+
+        function hideModal() {
+            if(successModal) successModal.classList.remove('visible');
+        }
+
+        if(closeModalBtn) closeModalBtn.addEventListener('click', hideModal);
+        if(successModal) successModal.addEventListener('click', (e) => {
+            if (e.target.id === 'success-modal') hideModal();
+        });
+
+    </script>
+</body>
+
+</html>
